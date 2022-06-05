@@ -1,19 +1,20 @@
-from flask import Flask, render_template, request
-from flask_session import Session
+from flask import Flask, render_template, request, session
 
 app = Flask(__name__)
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-Session['products'] = []
+app.config['SECRET_KEY'] = 'abc'
 
 @app.route('/')
 def form():
-    return render_template('index.html', products=Session['products'])
+    if not 'products' in session:
+        session['products'] = []
+    return render_template('index.html', products=session['products'])
 
 
 @app.route('/', methods=['POST'])
 def data():
-    Session['products'].append(request.form['product'])
-    return render_template('index.html', products=Session['products'])
+    session['products'].append(request.form['product'])
+    session.modified = True
+    return render_template('index.html', products=session['products'])
 
 
 if __name__ == '__main__':
