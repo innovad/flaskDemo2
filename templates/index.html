@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<ul>
+{% for product in products %}
+    <li>{{product}}</li>
+{%endfor%}
+</ul>
+
+<form action="/" method = "POST">
+    <p>Produkt hinzufügen <input type = "text" name = "product" /></p>
+    <p><input type = "submit" value = "Abschicken" /></p>
+</form>
+
+</body>
+</html>
